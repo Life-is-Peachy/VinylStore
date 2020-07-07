@@ -1,0 +1,27 @@
+﻿@model Product
+
+<div class="grid-product">
+    <form asp-action="Single" asp-controller="Product" method="get">
+        <div class="product-grid">
+            <div class="content_box">
+                <input asp-for="ProductID" type="hidden" />
+                <div class="left-grid-view grid-view-left">
+                    @if (Model.Logo != null)
+                    {
+                        <input type="image" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Logo))" class="img-responsive watch-right" />
+                    }
+                    else
+                    {
+                        <input type="image" src="~/images/VinylIco.jpg" class="img-responsive watch-right" />
+                    }
+                    <div class="mask">
+                        <div class="info">Quick View</div>
+                    </div>
+                </div>
+            </div>
+            <h4><a>@Model.Album</a></h4>
+            <p>@Model.Artist</p>
+            @Model.Price.ToString("c")
+        </div>
+    </form>
+</div>
