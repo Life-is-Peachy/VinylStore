@@ -1,0 +1,46 @@
+@model Product
+
+<div class="container">
+    <div class="single_top">
+        <div class="single_grid">
+            <div class="grid images_3_of_2">
+                <ul id="etalage">
+                    <li>
+                        <input type="image" src="~/images/VinylIco.jpg" class="img-responsive watch-right" />
+                    </li>
+                </ul>
+            </div>
+            <div class="desc1 span_3_of_2">
+                <h4>@Model.Album</h4>
+                <div class="cart-b">
+                    <div class="left-n">@Model.Price.ToString("c")</div>
+                    <form id="@Model.ProductID" asp-action="AddToCart"
+                          asp-controller="Cart" method="post">
+                        <input type="hidden" asp-for="ProductID" />
+                        <input type="hidden" name="returnUrl"
+                               value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                        <button type="submit" class="get-cart-in" style="font-size: 1.1em; color: #fff; padding: 0.6em 0.8em; background: #323A45; text-decoration: none;">ADD TO CART</button>
+                    </form>
+                    <div class="clearfix"></div>
+                </div>
+                <h6>@Model.Artist</h6>
+                <p>@Model.Description</p>
+            </div>
+        </div>
+        <script type="text/javascript" asp-src-include="js/jquery.flexisel.js"></script>
+        <script>
+            jQuery(document).ready(function ($) {
+                $('#etalage').etalage({
+                    thumb_image_width: 300,
+                    thumb_image_height: 400,
+                    source_image_width: 900,
+                    source_image_height: 1200,
+                    show_hint: true,
+                    click_callback: function (image_anchor, instance_id) {
+                        alert('Callback example:\nYou clicked on an image with the anchor: "' + image_anchor + '"\n(in Etalage instance: "' + instance_id + '")');
+                    }
+                });
+            });
+        </script>
+    </div>
+</div>

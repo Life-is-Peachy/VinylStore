@@ -39,5 +39,32 @@ namespace VinylStore.Controllers
                 },
                 CurrentGenre = genre
             });
+
+        public ViewResult Search(string searchWord, int page = 1)
+           => View("List", new ProductListViewModel
+           {
+               Products = repository.Products
+               .Where(p => p.Album.ToLower() == searchWord.ToLower() || p.Artist.ToLower() == searchWord.ToLower())
+               .OrderBy(p => p.ProductID)
+               .Skip((page - 1) * PageSize)
+               .Take(PageSize),
+               PagingInfo = new PagingInfo
+               {
+                   CurrentPage = page,
+                   ItemsPerPage = PageSize,
+                   TotalItems = repository.Products
+                   .Where(p => p.Album.ToLower() == searchWord.ToLower())
+                   .Count()
+               },
+               CurrentGenre = null
+           });
+
+        public ViewResult Single(int productID)
+        {
+            Product Product = repository.Products
+                .Where(p => p.ProductID == productID)
+                .FirstOrDefault();
+            return View(Product);
+        }
     }
 }

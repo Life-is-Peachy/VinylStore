@@ -14,8 +14,15 @@
     <script asp-src-include="js/jquery.etalage.min.js"></script>
 </head>
 <body>
+    @await Component.InvokeAsync("Header")
+    <div class="row panel">
+        <div id="genres">
+            @await Component.InvokeAsync("NavigationMenu")
+        </div>
         <div>
             @RenderBody()
         </div>
+        @await Component.InvokeAsync("Footer")
+    </div>
 </body>
 </html>

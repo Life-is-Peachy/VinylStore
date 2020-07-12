@@ -10,8 +10,8 @@ using VinylStore.Models;
 namespace VinylStore.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20200707163804_Initial")]
-    partial class Initial
+    [Migration("20200711082235_InitialFirst")]
+    partial class InitialFirst
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

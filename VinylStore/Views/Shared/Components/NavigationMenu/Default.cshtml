@@ -1,0 +1,30 @@
+﻿@model IEnumerable<string>
+
+<div class="clearfix"> </div>
+<div class="sub-cate">
+    <div class="top-nav col-lg-6">
+        <h3 class="cate">CATEGORIES</h3>
+        <ul class="menu">
+            <li class="subitem1">
+                <a asp-action="List"
+                   asp-controller="Product"
+                   asp-route-genre=>
+                    Home
+                </a>
+            </li>
+            @foreach (string genre in Model)
+            {
+                <li class="item1">
+                    <ul class="cute">
+                        <li class="subitem1">
+                            <a asp-action="List"
+                               asp-controller="Product"
+                               asp-route-genre="@genre"
+                               asp-route-page=1>@genre</a>
+                        </li>
+                    </ul>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
