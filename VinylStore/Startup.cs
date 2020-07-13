@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
 using VinylStore.Models;
+using System;
 
 namespace VinylStore
 {
@@ -25,9 +26,17 @@ namespace VinylStore
                 options => options.UseSqlServer(
                     Configuration["Data:VinylStore:ConnectionStrings:ProductDbContext"])
                     );
+            services.AddDbContext<AppIdentityDbContext>(
+                options => options.UseSqlServer(
+                    Configuration["Data:VinylStore:ConnectionStrings:AppIdentityDbContext"])
+                );
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>();
             services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            services.AddScoped<AppIdentityDbContext>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IOrderRepository, EFOrderRepository>();
             services.AddControllersWithViews();
             services.AddMemoryCache();
             services.AddSession();
@@ -45,6 +54,8 @@ namespace VinylStore
             app.UseStaticFiles();
             app.UseRouting();
             app.UseSession();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -72,6 +83,7 @@ namespace VinylStore
                     pattern: "{controller=Product}/{action=List}/{id?}");
             });
             ProductSeedData.InitialBaseProductData(serviceProvider);
+            IdentitySeedData.InitialBaseIdentityData(app);
         }
     }
 }

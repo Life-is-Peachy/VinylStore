@@ -1,0 +1,22 @@
+@model LoginModel
+
+<div class="container">
+    <div class="account_grid">
+        <div class="login-right">
+            <form asp-action="Login" asp-controller="Account" method="post">
+                <input type="hidden" asp-for="ReturnUrl" />
+                <div>
+                    <label asp-for="Name"></label>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <input asp-for="Name">
+                </div>
+                <div>
+                    <label asp-for="Password"></label>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <input asp-for="Password">
+                </div>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+    </div>
+</div>
