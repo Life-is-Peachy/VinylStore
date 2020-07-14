@@ -10,5 +10,7 @@ namespace VinylStore.Models
     public interface IProductRepository
     {
         IEnumerable<Product> Products { get; }
+        void SaveProduct(Product product, ProductViewModel pvm);
+        Product DeleteProduct(int productID);
     }
 }

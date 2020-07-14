@@ -57,8 +57,5 @@ namespace VinylStore.Controllers
 
         public ViewResult Checkout()
             => View(new Order());
-
-
-
     }
 }

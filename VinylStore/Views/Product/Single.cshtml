@@ -6,7 +6,8 @@
             <div class="grid images_3_of_2">
                 <ul id="etalage">
                     <li>
-                        <input type="image" src="~/images/VinylIco.jpg" class="img-responsive watch-right" />
+                        <img class="etalage_thumb_image" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Logo))" />
+                        <img class="etalage_source_image" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Logo))" />
                     </li>
                 </ul>
             </div>

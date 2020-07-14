@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace VinylStore.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private UserManager<IdentityUser> userManager;
@@ -49,8 +50,6 @@ namespace VinylStore.Controllers
         [AllowAnonymous]
         public ViewResult Login(string returnUrl)
             => View(new LoginModel { ReturnUrl = returnUrl });
-
-
     }
 }
 
